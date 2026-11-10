@@ -1,0 +1,8 @@
+# Direct runtime dependencies for:
+# - build_local_db.py
+# - semantic_bridge.py
+# - search_server.py
+# Heavy transitive dependencies like torch and huggingface-hub come via sentence-transformers.
+sentence-transformers>=2.2.0
+chromadb>=0.4.0
+numpy>=1.24.0

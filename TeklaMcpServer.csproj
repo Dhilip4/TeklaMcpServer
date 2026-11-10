@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>$(NoWarn);NU1605</NoWarn>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    
+    <!-- Tekla version config -->
+    <TeklaVersion>2025.0</TeklaVersion>
+    <TeklaBinDir>C:\TeklaStructures\$(TeklaVersion)\bin</TeklaBinDir>
+    <!-- Exclude reference project, old standalone files, and scratch dirs -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);EXAMPLE\**;AGENT_MEMORY\**;PROJECT_TEMPLATES\**;macros\**;bin\**;obj\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <!-- Exclude test/debug standalone files -->
+  <ItemGroup>
+    <Compile Remove="ProbeAttributes.cs" />
+    <Compile Remove="TestIdentifier.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <!-- Tekla references: Private=false means they won't be copied to output (runtime-resolved) -->
+  <ItemGroup>
+    <Reference Include="Tekla.Structures">
+      <HintPath>$(TeklaBinDir)\Tekla.Structures.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Model">
+      <HintPath>$(TeklaBinDir)\Tekla.Structures.Model.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Drawing">
+      <HintPath>$(TeklaBinDir)\Tekla.Structures.Drawing.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.DrawingExtensions">
+      <HintPath>$(TeklaBinDir)\Tekla.Structures.DrawingExtensions.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Datatype" Condition="Exists('$(TeklaBinDir)\Tekla.Structures.Datatype.dll')">
+      <HintPath>$(TeklaBinDir)\Tekla.Structures.Datatype.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Catalogs" Condition="Exists('$(TeklaBinDir)\Tekla.Structures.Catalogs.dll')">
+      <HintPath>$(TeklaBinDir)\Tekla.Structures.Catalogs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Tekla.Application.Library" Condition="Exists('$(TeklaBinDir)\Tekla.Application.Library.dll')">
+      <HintPath>$(TeklaBinDir)\Tekla.Application.Library.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Copy config files to output -->
+  <ItemGroup>
+    <None Include="config\**\*" CopyToOutputDirectory="PreserveNewest" LinkBase="config" />
+  </ItemGroup>
+
+  <!-- Clean stale Tekla DLLs from output to avoid version conflicts -->
+  <Target Name="CleanStaleTeklaDlls" AfterTargets="Build">
+    <ItemGroup>
+      <StaleDlls Include="$(OutputPath)Tekla.*.dll" />
+      <StaleDlls Include="$(OutputPath)Trimble.*.dll" />
+      <StaleDlls Include="$(OutputPath)DotNetKit.dll" />
+    </ItemGroup>
+    <Delete Files="@(StaleDlls)" ContinueOnError="true" />
+  </Target>
+
+</Project>

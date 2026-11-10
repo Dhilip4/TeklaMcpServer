@@ -1,0 +1,98 @@
+{
+  "components": {
+    "base_plate": {
+      "description": "Creates a base plate connection at column base with anchor bolts",
+      "tekla_name": "Base plate",
+      "number": 1004,
+      "type": "DETAIL",
+      "primary_object": "column",
+      "custom_properties": {
+        "PlateThickness": {
+          "description": "Base plate thickness in mm",
+          "type": "float"
+        },
+        "AnchorBoltDiameter": {
+          "description": "Anchor bolt diameter in mm",
+          "type": "float"
+        },
+        "AnchorBoltGradeX": {
+          "description": "Number of anchor bolts in X direction",
+          "type": "int"
+        },
+        "AnchorBoltGradeY": {
+          "description": "Number of anchor bolts in Y direction",
+          "type": "int"
+        }
+      }
+    },
+    "end_plate": {
+      "description": "Creates an end plate moment connection between beam and column",
+      "tekla_name": "End plate",
+      "number": 144,
+      "type": "CONNECTION",
+      "primary_object": "beam",
+      "secondary_object": "column",
+      "custom_properties": {
+        "PlateThickness": {
+          "description": "End plate thickness in mm",
+          "type": "float"
+        },
+        "BoltDiameter": {
+          "description": "Bolt diameter in mm",
+          "type": "float"
+        },
+        "BoltStandard": {
+          "description": "Bolt standard (e.g. BL_D-DIAM-L)",
+          "type": "string"
+        }
+      }
+    },
+    "shear_tab": {
+      "description": "Creates a shear tab (fin plate) connection between beam web and column",
+      "tekla_name": "Shear tab",
+      "number": 146,
+      "type": "CONNECTION",
+      "primary_object": "beam",
+      "secondary_object": "column",
+      "custom_properties": {
+        "TabThickness": {
+          "description": "Shear tab thickness in mm",
+          "type": "float"
+        },
+        "BoltDiameter": {
+          "description": "Bolt diameter in mm",
+          "type": "float"
+        }
+      }
+    },
+    "eaves_haunch": {
+      "description": "Creates an eaves haunch connection between column and rafter at eaves level",
+      "tekla_name": "Eaves haunch",
+      "number": 102,
+      "type": "CONNECTION",
+      "primary_object": "column",
+      "secondary_object": "rafter",
+      "custom_properties": {}
+    },
+    "apex_haunch": {
+      "description": "Creates an apex haunch connection between two rafters at the ridge",
+      "tekla_name": "Apex haunch",
+      "number": 106,
+      "type": "CONNECTION",
+      "primary_object": "rafter",
+      "secondary_object": "rafter",
+      "auto_direction_type": "SPLICE",
+      "position_type": "END_END_PLANE",
+      "custom_properties": {}
+    },
+    "purlin_connections": {
+      "description": "Creates a purlin connection between rafter and purlin",
+      "tekla_name": "Purlin connections",
+      "number": 93,
+      "type": "CONNECTION",
+      "primary_object": "rafter",
+      "secondary_object": "purlin",
+      "custom_properties": {}
+    }
+  }
+}

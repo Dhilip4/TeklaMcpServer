@@ -1,0 +1,1 @@
+[TeklaMcpServer] Runtime: version=2022.0, source=running Tekla instance, binDir=C:\TeklaStructures\2022.0\bin

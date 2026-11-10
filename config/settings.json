@@ -1,0 +1,11 @@
+{
+  "tekla": {
+    "version": "2025.0",
+    "binDir": "C:\\TeklaStructures\\2025.0\\bin",
+    "license": "Diamond"
+  },
+  "server": {
+    "logLevel": "Warning",
+    "semanticServiceUrl": "http://localhost:5050"
+  }
+}

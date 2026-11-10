@@ -1,0 +1,28 @@
+{
+  "Steel": {
+    "COLUMN": [1, 2],
+    "BEAM": [3, 4, 5, 6],
+    "BRACE": [7, 8, 9],
+    "PLATE": [10, 11],
+    "STIFFENER": [12, 13],
+    "PURLIN": [14, 15],
+    "GIRT": [16],
+    "RAFTER": [17, 18],
+    "TRUSS_CHORD": [19, 20],
+    "TRUSS_WEB": [21, 22],
+    "MISC": [99]
+  },
+  "Connection": {
+    "BASE_PLATE": [30],
+    "END_PLATE": [31],
+    "GUSSET_PLATE": [32],
+    "SHEAR_TAB": [33],
+    "SPLICE_PLATE": [34]
+  },
+  "Other": {
+    "HANDRAIL": [40],
+    "STAIR": [41],
+    "LADDER": [42],
+    "GRATINGS": [43]
+  }
+}
