@@ -1,0 +1,8 @@
+[17:28:33] INFO Semantic bridge started, waiting for requests on stdin...
+[17:28:33] INFO Request: search_api
+[17:28:33] INFO search_api: 'Intersection bounding box for clash detection'
+[17:28:33] INFO Loading ChromaDB from C:\Users\dhilip.kumar\TeklaMcpServer\semantic-service\chroma_db ...
+[17:28:34] INFO ChromaDB loaded in 338 ms
+[17:28:34] INFO Request: search_api
+[17:28:34] INFO search_api: 'Analyze plate geometry bend surface'
+[17:29:27] INFO Semantic bridge exiting.

@@ -1,0 +1,27 @@
+# Tekla GA Drawing Automation - Stabilized Workflow
+
+## Stabilized Creation Logic
+To create accurate GA drawings (e.g., Frame Cross Sections), use the following parameters and logic sequence:
+
+1.  **Coordinate System**: Always transform the model's `WorkArea` into the local `DisplayCoordinateSystem` of the view to prevent clipping.
+2.  **View Depth**: Use a fixed Z-range (e.g., 650 Up / 650 Down) to isolate the structural frame and hide background grids.
+3.  **Attributes**: 
+    *   Use the 5-parameter `TSD.View` constructor to bind attributes at creation.
+    *   **Leading Spaces**: Be aware that some environment attributes (like ` ga-cs-1 VIEW`) have leading spaces in the filename. The server now has "Auto-Space Detection" logic to handle this.
+4.  **Save Sequence**:
+    *   `gaDrawing.Insert()`
+    *   `handler.SetActiveDrawing(gaDrawing)`
+    *   `Thread.Sleep(2000)` (Critical settling delay)
+    *   Create views.
+    *   `gaDrawing.Modify()`
+    *   `handler.SaveActiveDrawing()`
+
+## Knowledge Gained
+- **Attribute Files**: `.gd` files (drawing) and `.vi` files (view) must match exactly. If a `.vi` file has a leading space, `LoadAttributes` without the space will fail silently.
+- **Save Method**: Use `DrawingHandler.SaveActiveDrawing()` instead of the non-existent `Save()` or `Commit()`.
+- **Clipping**: Clipping issues are usually caused by `WorkArea` being in Global coordinates while the `View` expects Local coordinates.
+
+## Latest Successful Settings
+- **Drawing Attributes**: `ga-cs-1`
+- **View Attributes**: ` ga-cs-1 VIEW` (Found via auto-detection)
+- **View Depth**: 650 / 650
